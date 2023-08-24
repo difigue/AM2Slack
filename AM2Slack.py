@@ -54,9 +54,12 @@ no_data = {
         "status_emoji": ""
     }
 }
+get_status = ''
 
 if player_state != 'playing':
     make_post_request(url_post, headers=headers, json=no_data)
 else:
-    if make_get_request(url_get,headers).json()["profile"]["status_text"] != new_status:
-        updated_new_status = make_post_request(url_post, headers=headers, json=data)
+    get_status = make_get_request(url_get,headers).json()["profile"]["status_text"]
+    if get_status != 'Almorzando':
+        if get_status != new_status:
+            make_post_request(url_post, headers=headers, json=data)
