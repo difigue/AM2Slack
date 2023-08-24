@@ -40,6 +40,8 @@ if album == "":
     new_status = title+" - "+artist
 else:
     new_status = title+" - "+artist+" ("+album+")"
+if len(new_status)>100:
+    new_status = new_status[0:97]+'...'
 data = {
     "profile": {
         "status_text": new_status,
@@ -54,12 +56,20 @@ no_data = {
         "status_emoji": ""
     }
 }
-get_status = ''
 
 if player_state != 'playing':
     make_post_request(url_post, headers=headers, json=no_data)
+    print('No music playing, clearing status.')
 else:
-    get_status = make_get_request(url_get,headers).json()["profile"]["status_text"]
+    print('Music is playing.')
+    get_status = make_get_request(url_get,headers).json()["profile"]["status_text"].replace('&amp;',"&")
+    print('Slack API user status:',get_status)
     if get_status != 'Almorzando':
         if get_status != new_status:
-            make_post_request(url_post, headers=headers, json=data)
+            post_response = make_post_request(url_post, headers=headers, json=data)
+            print('New song playing,',new_status)
+            print('Updating status.')
+        else:
+            print('Still playing the same song, no action performed.')
+    else:
+        print('Custom user status, no action performed')
