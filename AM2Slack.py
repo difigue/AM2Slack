@@ -1,3 +1,4 @@
+#AM2Slack v1.0.3
 import requests
 import time
 import random
@@ -30,16 +31,21 @@ expiration = int(time.time()) + 60*5
 url_get = "https://slack.com/api/users.profile.get"
 url_post = "https://slack.com/api/users.profile.set"
 headers = {
-        "Authorization": "Bearer xoxp-1277547768662-5441863361751-5793549125492-227a21c4ec1419cd7a4d46a9bb2101be", "Content-Type": "application/json; charset=utf-8"}
-title = track[0]
-artist = track[1]
-genre = track[2]
-album = track[3]
-player_state = track[4]
-if album == "":
-    new_status = title+" - "+artist
+        "Authorization": "Bearer xoxp-1277547768662-5441863361751-5793549125492-227a21c4ec1419cd7a4d46a9bb2101be", "Content-Type": "application/json; charset=utf-8"
+}
+if track != ['']:
+    title = track[0]
+    artist = track[1]
+    genre = track[2]
+    album = track[3]
+    player_state = track[4]
+    if album == "":
+        new_status = title+" - "+artist
+    else:
+        new_status = title+" - "+artist+" ("+album+")"
 else:
-    new_status = title+" - "+artist+" ("+album+")"
+    new_status = ''
+    player_state = ''
 if len(new_status)>100:
     new_status = new_status[0:97]+'...'
 data = {
