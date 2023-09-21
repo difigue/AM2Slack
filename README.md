@@ -1,5 +1,5 @@
 # Am2Slack
-Mini script to update your Slack status with what is currently playing on Apple Music
+Mini script to update your Slack status with what is currently playing on Apple Music on MacOS.
 
 Features:
 - Shell script to run on your Mac Terminal.
