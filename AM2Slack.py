@@ -1,4 +1,4 @@
-#AM2Slack v1.0.3
+#AM2Slack v1.0.4
 import requests
 import time
 import random
@@ -63,19 +63,19 @@ no_data = {
     }
 }
 
-if player_state != 'playing':
-    make_post_request(url_post, headers=headers, json=no_data)
-    print('No music playing, clearing status.')
-else:
-    print('Music is playing.')
-    get_status = make_get_request(url_get,headers).json()["profile"]["status_text"].replace('&amp;',"&")
-    print('Slack API user status:',get_status)
-    if get_status != 'Almorzando':
+get_status = make_get_request(url_get,headers).json()["profile"]["status_text"].replace('&amp;',"&")
+if get_status != 'Almorzando':
+    if player_state != 'playing':
+        make_post_request(url_post, headers=headers, json=no_data)
+        print('No music playing, clearing status.')
+    else:
+        print('Music is playing.')
+        print('Slack API user status:',get_status)
         if get_status != new_status:
             post_response = make_post_request(url_post, headers=headers, json=data)
             print('New song playing,',new_status)
             print('Updating status.')
         else:
             print('Still playing the same song, no action performed.')
-    else:
-        print('Custom user status, no action performed')
+else:
+    print('Custom user status, no action performed')
