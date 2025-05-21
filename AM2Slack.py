@@ -87,7 +87,7 @@ no_data = {
 get_status = make_get_request(url_get,headers)
 
 if not get_status.json()["ok"]:
-    print(f"Slack API error: {get_status.json()["error"]}")
+    print(f'Slack API error: {get_status.json()["error"]}')
 else:
     status = get_status.json()["profile"]["status_text"].replace('&amp;',"&")
 
@@ -104,7 +104,7 @@ else:
                     print('New song playing,',new_status)
                     print('Status updated successfully.')
                 else:
-                    print(f"Status update failed: {post_response.json()["error"]}")
+                    print(f'Status update failed: {post_response.json()["error"]}')
             else:
                 print('Still playing the same track, no action performed.')
     else:
