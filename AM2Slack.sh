@@ -1,7 +1,17 @@
 #!/bin/bash
 
-PY_SCRIPT="AM2Slack.py"
+set -a
+source .env
+set +a
 
-SCRIPT_DIR="/Users/diego/Documents/Programas/Python/AM2Slack"
+if ! [[ "$EXECUTION_INTERVAL" =~ ^[0-9]+$ ]]; then
+  echo "Warning: EXECUTION_INTERVAL is not set in .env file or is not a valid integer. Setting to 60 seconds." >&2
+  EXECUTION_INTERVAL=60
+fi
 
-watch -n 10 python3 "$SCRIPT_DIR/$PY_SCRIPT"
+if [[ -z "$PROGRAM_DIR" ]]; then
+  echo "Error: PROGRAM_DIR is not set in .env file." >&2
+  exit 1
+fi
+
+watch -n "$EXECUTION_INTERVAL" python3 "$PROGRAM_DIR"
