@@ -20,4 +20,5 @@ Mini script to update your Slack status with what is currently playing on Apple 
 8. Make the script executable by running the following command in your terminal `chmod +x AM2Slack.sh`.
 9. (Optional but recommended) Create a virtual environment.
 10. Install project dependencies `pip install -r requirements.txt`
-11. Run the program with `./AM2Slack.sh`
+11. Make sure `watch` command is installed. If it's not, install it with `brew install watch`
+12. Run the program with `./AM2Slack.sh`
